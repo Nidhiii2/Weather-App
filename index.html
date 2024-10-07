@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <style>
+       body {
+            background-color: #f0f4ff; /* Light purplish-blue background */
+            color: #333; /* Dark gray text */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .main-container {
+            background-color: white;
+            width: 60%; /* Reduced width */
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .search-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 20px;
+            font-size: 1.2rem; /* Increased font size for search box */
+        }
+
+        .col-9 input.form-control {
+            font-size: 1.2rem; /* Increased input font size */
+            padding: 12px; /* Increased padding */
+        }
+
+        .col-3 input.btn {
+            font-size: 1.2rem; /* Increased button font size */
+            padding: 12px; /* Increased padding */
+        }
+
+        h1 {
+            color: #4b5db6; /* Darker purplish-blue */
+            margin-top: 10px;
+            text-align: center;
+            font-size: 2rem; /* Increased font size */
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        a {
+            color: #4b5db6; /* Link color */
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .form-control {
+            background-color: #ffffff;
+            border: 1px solid #b3c2ff;
+            color: #333;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .btn-primary {
+            background-color: #6c7bd9;
+            border: none;
+            color: #fff;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #5964c3;
+        }
+
+        .temperature-container {
+            color: #4b5db6;
+        }
+
+        .WeatherForecast {
+            margin-top: 20px;
+        }
+
+        .forecast-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .forecast-table th, .forecast-table td {
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #b3c2ff;
+        }
+
+        .weather-icon {
+            width: 30px;
+            height: 30px;
+        }
+
+        footer {
+            margin-top: 20px;
+            text-align: center;
+            background-color: #e0e4f8;
+            padding: 10px;
+            font-size: 14px;
+        }
+
+        footer a {
+            color: #4b5db6;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="App">
+            <div class="container">
+                <div class="Weather">
+                    <a href="https://www.shecodes.io/" target="_blank" rel="noopener noreferrer">
+                        <img src="https://www.inclusionhub.com/hs-fs/hubfs/resource%20logos/SheCodes%20Logo.png?width=1216&height=339&name=SheCodes%20Logo.png" class="logo" alt="SheCodes Logo" height="80px" width="300px">
+                    </a>
+                    <form id="weather-form" onsubmit="return false;">
+                        <div class="search-section">
+                            <div class="row search-row">
+                                <div class="col-9">
+                                    <input type="search" placeholder="Enter a city.." class="form-control search-input" id="city-input">
+                                </div>
+                                <div class="col-3 p-0">
+                                    <input type="submit" class="btn btn-primary w-100" value="Search" onclick="getWeather()">
+                                </div>
+                            </div>
+                            <h1 id="city-name">San Francisco</h1>
+                        </div>
+                    </form>
+
+                    <!-- Weather Information Section -->
+                    <div class="WeatherInfo">
+                        <div class="row">
+                            <div class="col-6">
+                                <ul>
+                                    <li><span>Saturday 17:38</span>, few clouds</li>
+                                    <li>Humidity: <strong>59%</strong>, Wind: <strong>0.45km/h</strong></li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-8">
+                                <div class="temperature-container d-flex justify-content-end">
+                                    <canvas width="52" height="52"></canvas>
+                                    <div>
+                                        <span class="temperature">20</span><span class="unit">°C</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Weather Forecast Section with Table Structure -->
+                    <div class="WeatherForecast">
+                        <table class="forecast-table">
+                            <thead>
+                                <tr>
+                                    <th>Day</th>
+                                    <th>Weather</th>
+                                    <th>High</th>
+                                    <th>Low</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Sun</td>
+                                    <td><img src="https://w7.pngwing.com/pngs/267/400/png-transparent-free-content-blog-sunny-weather-cloud-hand-website-thumbnail.png" alt="Sunny" class="weather-icon"></td>
+                                    <td>28°C</td>
+                                    <td>19°C</td>
+                                </tr>
+                                <tr>
+                                    <td>Mon</td>
+                                    <td><img src="https://w7.pngwing.com/pngs/500/682/png-transparent-cloud-weather-rain-illustration-cloudy-weather-photography-heart-orange-thumbnail.png" alt="Cloudy" class="weather-icon"></td>
+                                    <td>24°C</td>
+                                    <td>18°C</td>
+                                </tr>
+                                <tr>
+                                    <td>Tue</td>
+                                    <td><img src="https://w7.pngwing.com/pngs/270/45/png-transparent-cloud-heavy-rain-rain-weather-weather-flat-icon-thumbnail.png" alt="Rainy" class="weather-icon"></td>
+                                    <td>22°C</td>
+                                    <td>16°C</td>
+                                </tr>
+                                <tr>
+                                    <td>Wed</td>
+                                    <td><img src="https://w7.pngwing.com/pngs/500/682/png-transparent-cloud-weather-rain-illustration-cloudy-weather-photography-heart-orange-thumbnail.png" alt="Cloudy" class="weather-icon"></td>
+                                    <td>17°C</td>
+                                    <td>14°C</td>
+                                </tr>
+                                <tr>
+                                    <td>Thu</td>
+                                    <td><img src="https://w7.pngwing.com/pngs/267/400/png-transparent-free-content-blog-sunny-weather-cloud-hand-website-thumbnail.png" alt="Sunny" class="weather-icon"></td>
+                                    <td>18°C</td>
+                                    <td>14°C</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <footer>
+                        This project was coded by 
+                        <a href="https://github.com/Nidhiii2" target="_blank" rel="noopener noreferrer">Nidhi Saroj</a> 
+                        and is 
+                        <a href="https://github.com/Nidhiii2" target="_blank" rel="noopener noreferrer">open-sourced on GitHub</a> 
+                        and 
+                        <a href="https://github.com/Nidhiii2" target="_blank" rel="noopener noreferrer">hosted on Github</a>
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const weatherData = {
+            "Paris": { tempC: 19, humidity: 80 },
+            "New York": { tempC: 22, humidity: 60 },
+            "San Francisco": { tempC: 20, humidity: 59 },
+            // Add more cities as needed
+        };
+
+        function getWeather() {
+            const city = document.getElementById('city-input').value;
+            const cityInfo = weatherData[city];
+
+            if (cityInfo) {
+                alert(`Weather in ${city}:\nTemperature: ${cityInfo.tempC}°C\nHumidity: ${cityInfo.humidity}%`);
+                document.getElementById('city-name').innerText = city;
+            } else {
+                alert("City not found! Please enter a valid city.");
+            }
+        }
+    </script>
+</body>
+</html>
