@@ -1,8 +1,8 @@
 # Weather-App
 A simple and responsive weather application that provides real-time weather updates and a 5-day forecast using the OpenWeather API.
 
-🔗 Live Demo
-Click here to view the live project ()
+🔗 **Live Demo**  
+[Click here to view the live project](https://nidhiii2.github.io/Weather-App/) 🚀
 
 🚀 Features
 ✅ Fetches real-time weather data for any city
